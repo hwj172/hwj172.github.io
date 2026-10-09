@@ -43,6 +43,7 @@
     'skills.languages': 'Languages',
     'skills.frameworks': 'Frameworks & Libraries',
     'skills.tools': 'Engineering & Tools',
+    'skills.hint': 'Hover a tag to see which projects used it',
 
     'projects.title': 'Projects',
     'projects.p1.title': 'Tianji Mall — Spring Boot Monolith',

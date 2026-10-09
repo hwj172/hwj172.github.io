@@ -1,7 +1,7 @@
 /**
- * 页面基础交互：页脚年份、导航状态、当前区块指示
+ * 页面交互：页脚年份、导航状态、当前区块指示、技能↔项目联动
  *
- * 动效在 motion.js。这里的 IntersectionObserver 只有一个用途：
+ * 滚动动效在 motion.js。这里的 IntersectionObserver 只有一个用途：
  * 判断当前处于哪个区块，由它同时驱动导航高亮和左侧竖线的序号 ——
  * 不要在这里再加第二个观察器。
  */
@@ -88,5 +88,64 @@
     }, { rootMargin: '-25% 0px -60% 0px' });
 
     sections.forEach(function (section) { navObserver.observe(section); });
+  }
+
+  /* ── 技能 ↔ 项目联动 ── */
+  /* 悬停某个技能标签时，用到它的项目留下并前移，其余淡出。
+     映射直接从 DOM 推导：项目和技能本来就用同一套标签文本，
+     不另建一份对应关系，免得两边不同步。 */
+  var skillTags = document.querySelectorAll('.skill-group .tags .tag');
+  var projects = document.querySelectorAll('.project');
+
+  // 只在精确指针设备上启用：触屏没有 hover，挂上会出现卸不掉的状态
+  if (skillTags.length && projects.length &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+
+    var projTags = [];
+    Array.prototype.forEach.call(projects, function (proj) {
+      var texts = [];
+      Array.prototype.forEach.call(proj.querySelectorAll('.tags .tag'), function (t) {
+        texts.push(t.textContent.trim());
+      });
+      projTags.push(texts);
+    });
+
+    var clearLink = function () {
+      Array.prototype.forEach.call(projects, function (p) {
+        p.classList.remove('is-linked', 'is-dimmed');
+      });
+      Array.prototype.forEach.call(
+        document.querySelectorAll('.project .tag.is-match'),
+        function (t) { t.classList.remove('is-match'); }
+      );
+    };
+
+    Array.prototype.forEach.call(skillTags, function (tag) {
+      var text = tag.textContent.trim();
+
+      var hits = [];
+      projTags.forEach(function (texts, i) {
+        if (texts.indexOf(text) >= 0) hits.push(i);
+      });
+      // 没有任何项目用到它，就不做交互，免得悬停过去毫无反应
+      if (!hits.length) return;
+
+      tag.classList.add('is-linked');
+
+      tag.addEventListener('mouseenter', function () {
+        Array.prototype.forEach.call(projects, function (p, i) {
+          var hit = hits.indexOf(i) >= 0;
+          p.classList.toggle('is-linked', hit);
+          p.classList.toggle('is-dimmed', !hit);
+          if (!hit) return;
+          // 项目里用到这个技能的那枚标签也点出来
+          Array.prototype.forEach.call(p.querySelectorAll('.tags .tag'), function (t) {
+            if (t.textContent.trim() === text) t.classList.add('is-match');
+          });
+        });
+      });
+
+      tag.addEventListener('mouseleave', clearLink);
+    });
   }
 })();

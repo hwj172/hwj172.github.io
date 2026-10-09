@@ -473,11 +473,40 @@ a { color: inherit; }
 }
 .tag:hover { border-color: var(--muted); }
 
+/* 能联动到项目的技能标签：悬停时描边加深，暗示它可交互 */
+.tag.is-linked:hover { border-color: var(--fg); }
+
+/* 技能标签联动的提示语。
+   触屏上联动是关闭的，所以这句提示也必须隐藏 ——
+   否则等于给了一个用不了的指引。 */
+.skill-hint {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-hint {
+    display: block;
+    margin-top: 28px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--faint);
+  }
+}
+
+/* 悬停技能标签时：用到它的项目留下并前移，其余淡出。
+   只有精确指针设备才启用 —— 触屏没有 hover，这个状态永远不会解除。 */
+@media (hover: hover) and (pointer: fine) {
+  .project.is-dimmed { opacity: 0.24; }
+  .project.is-linked { transform: translateX(5px); }
+  .project.is-linked .tag.is-match { border-color: var(--fg); }
+}
+
 /* ═══════════ 项目 ═══════════ */
 .project {
   padding-top: 32px;
   border-top: 1px solid var(--line);
-  transition: transform 420ms var(--ease);
+  transition: transform 420ms var(--ease), opacity 320ms var(--ease);
 }
 .project:first-child { padding-top: 0; border-top: 0; }
 .project + .project { margin-top: 32px; }
