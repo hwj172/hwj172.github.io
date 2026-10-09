@@ -9,8 +9,9 @@
   color-scheme: light dark;
 
   --bg:     #FAFAFA;
-  --fg:     #111111;
-  --muted:  #6B6B6B;
+  --fg:     #111111;   /* 主：标题、正文、项目名 */
+  --muted:  #454545;   /* 次：描述、标签、导航 */
+  --faint:  #737373;   /* 弱：序号、meta、页脚等元信息 */
   --line:   #E5E5E5;
   --nav-bg: rgba(250, 250, 250, 0.82);
 
@@ -28,8 +29,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg:     #0E0E0E;
-    --fg:     #EDEDED;
-    --muted:  #8A8A8A;
+    --fg:     #EDEDED;   /* 主 */
+    --muted:  #B4B4B4;   /* 次 */
+    --faint:  #7A7A7A;   /* 弱 */
     --line:   #222222;
     --nav-bg: rgba(14, 14, 14, 0.82);
   }
@@ -153,7 +155,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 .rail-line {
@@ -286,7 +288,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 .hero-cue-line {
@@ -411,7 +413,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 .section-title {
@@ -434,7 +436,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.01em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 /* ═══════════ 技能 ═══════════ */
@@ -496,7 +498,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: var(--muted);
+  color: var(--faint);
   transition: color 420ms var(--ease);
 }
 
@@ -548,7 +550,7 @@ a { color: inherit; }
   font-size: 12px;
   line-height: 1.8;
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 /* ═══════════ 教育 ═══════════ */
@@ -579,7 +581,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: var(--muted);
+  color: var(--faint);
   white-space: nowrap;
 }
 
@@ -617,7 +619,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 /* ═══════════ 页脚 ═══════════ */
@@ -629,7 +631,7 @@ a { color: inherit; }
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 /* ═══════════ 错落入场 ═══════════ */
