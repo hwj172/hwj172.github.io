@@ -1,0 +1,14 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 依赖与构建产物（本项目零依赖，留在这里以防以后加工具链）
+node_modules/
+dist/
+
+# 日志
+*.log
+npm-debug.log*

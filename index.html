@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黄文杰 · 前端工程师</title>
+<meta name="description" content="黄文杰，前端工程师。专注于 Web 应用的性能与体验，熟悉 React / TypeScript / Vite。">
+<meta name="author" content="黄文杰">
+
+<!-- Open Graph：分享到社交平台时的卡片。补一张 1200x630 的图后取消下面 og:image 的注释 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="黄文杰 · 前端工程师">
+<meta property="og:description" content="专注于 Web 应用的性能与体验。">
+<!-- <meta property="og:image" content="./assets/img/og-cover.png"> -->
+
+<meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E0E0E" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<!-- 标记 JS 可用：没有它时 .reveal 元素保持可见，避免脚本失效导致整页空白 -->
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="a11y.skip">跳到主要内容</a>
+
+<!-- ══════════ 导航 ══════════ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" data-i18n="nav.brand">黄文杰</a>
+
+    <nav class="nav-links" aria-label="主导航">
+      <a href="#about"    data-i18n="nav.about">关于</a>
+      <a href="#skills"   data-i18n="nav.skills">技能</a>
+      <a href="#projects" data-i18n="nav.projects">项目</a>
+      <a href="#contact"  data-i18n="nav.contact">联系</a>
+    </nav>
+
+    <div class="lang-switch" role="group" aria-label="语言切换 / Language">
+      <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">中</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════════ 首屏 ══════════ -->
+  <section class="hero" id="top">
+    <div class="container">
+      <h1 class="hero-name" data-i18n="hero.name">黄文杰</h1>
+      <p class="hero-role" data-i18n="hero.role">前端工程师</p>
+      <p class="hero-intro" data-i18n="hero.intro">
+        五年前端开发经验，专注于 Web 应用的性能与体验。喜欢把复杂的问题拆成简单的结构，也喜欢写点小工具让日常工作少几步。
+      </p>
+      <ul class="hero-links">
+        <li><a class="link" href="https://github.com/yourname" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a class="link" href="mailto:hello@example.com" data-i18n="hero.email">邮箱</a></li>
+        <li><a class="link" href="https://juejin.cn/" target="_blank" rel="noopener" data-i18n="hero.juejin">掘金</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 关于 ══════════ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">01</span>
+        <h2 class="section-title" data-i18n="about.title">关于我</h2>
+      </div>
+
+      <div class="prose reveal">
+        <p data-i18n="about.p1">
+          我是一名前端工程师，目前专注于 React 生态下的中后台与工具型产品。日常工作围绕组件设计、状态管理、构建优化和可访问性展开。
+        </p>
+        <p data-i18n="about.p2">
+          我倾向于先把问题讲清楚再动手写。遇到模糊的需求，我会先把边界和取舍列出来，而不是直接堆代码——这样返工更少，讨论也更有效率。
+        </p>
+        <p data-i18n="about.p3">
+          不写代码的时候，我在读技术书、整理笔记，或者试图把手冲咖啡的水温控制得更稳定一点。
+        </p>
+      </div>
+
+      <p class="meta-line reveal" data-i18n="about.meta">
+        现居杭州 · 5 年经验 · 开放远程机会
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 技能 ══════════ -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">02</span>
+        <h2 class="section-title" data-i18n="skills.title">技能</h2>
+      </div>
+
+      <div class="skill-grid reveal">
+        <div class="skill-group">
+          <h3 class="skill-group-title" data-i18n="skills.languages">语言</h3>
+          <ul class="tags">
+            <li class="tag">JavaScript</li>
+            <li class="tag">TypeScript</li>
+            <li class="tag">HTML</li>
+            <li class="tag">CSS</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group-title" data-i18n="skills.frameworks">框架与库</h3>
+          <ul class="tags">
+            <li class="tag">React</li>
+            <li class="tag">Next.js</li>
+            <li class="tag">Vue 3</li>
+            <li class="tag">Tailwind CSS</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group-title" data-i18n="skills.tools">工程与工具</h3>
+          <ul class="tags">
+            <li class="tag">Vite</li>
+            <li class="tag">Webpack</li>
+            <li class="tag">Git</li>
+            <li class="tag">Playwright</li>
+            <li class="tag">Figma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 项目 ══════════ -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">03</span>
+        <h2 class="section-title" data-i18n="projects.title">项目</h2>
+      </div>
+
+      <!-- 增删项目：复制整个 <article class="project"> 块即可 -->
+      <div class="project-list">
+
+        <article class="project reveal">
+          <h3 class="project-title" data-i18n="projects.p1.title">组件文档站</h3>
+          <p class="project-desc" data-i18n="projects.p1.desc">
+            基于 Vite 的组件预览与文档站，能从 TypeScript 类型自动生成 API 表格，支持明暗主题切换与在线编辑示例。
+          </p>
+          <ul class="tags">
+            <li class="tag">React</li>
+            <li class="tag">TypeScript</li>
+            <li class="tag">Vite</li>
+          </ul>
+          <p class="project-links">
+            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+            <a class="link link-sm" href="https://example.com" target="_blank" rel="noopener" data-i18n="projects.demo">在线演示</a>
+          </p>
+        </article>
+
+        <article class="project reveal">
+          <h3 class="project-title" data-i18n="projects.p2.title">数据看板</h3>
+          <p class="project-desc" data-i18n="projects.p2.desc">
+            可拖拽配置的图表看板，支持多种数据源接入与本地缓存，配置以 JSON 导出，方便在不同环境之间迁移。
+          </p>
+          <ul class="tags">
+            <li class="tag">React</li>
+            <li class="tag">ECharts</li>
+            <li class="tag">Zustand</li>
+          </ul>
+          <p class="project-links">
+            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+          </p>
+        </article>
+
+        <article class="project reveal">
+          <h3 class="project-title" data-i18n="projects.p3.title">命令行待办</h3>
+          <p class="project-desc" data-i18n="projects.p3.desc">
+            终端里的极简待办工具，单文件实现、零依赖，数据存在本地，支持自然语言式的截止日期写法。
+          </p>
+          <ul class="tags">
+            <li class="tag">Node.js</li>
+            <li class="tag">CLI</li>
+          </ul>
+          <p class="project-links">
+            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 联系 ══════════ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">04</span>
+        <h2 class="section-title" data-i18n="contact.title">联系</h2>
+      </div>
+
+      <p class="prose reveal" data-i18n="contact.lead">
+        有新机会、技术交流或者只是想认识一下，都欢迎发邮件找我。
+      </p>
+
+      <ul class="contact-list reveal">
+        <li>
+          <span class="contact-label" data-i18n="contact.email">邮箱</span>
+          <a class="link" href="mailto:hello@example.com">hello@example.com</a>
+        </li>
+        <li>
+          <span class="contact-label">GitHub</span>
+          <a class="link" href="https://github.com/yourname" target="_blank" rel="noopener">github.com/yourname</a>
+        </li>
+        <li>
+          <span class="contact-label" data-i18n="contact.juejin">掘金</span>
+          <a class="link" href="https://juejin.cn/" target="_blank" rel="noopener">juejin.cn</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer-note">
+      © <span id="year">2026</span>
+      <span data-i18n="footer.name">黄文杰</span>
+      <span aria-hidden="true">·</span>
+      <span data-i18n="footer.built">用纯 HTML / CSS / JS 构建</span>
+    </p>
+  </div>
+</footer>
+
+<script src="./assets/js/i18n.js"></script>
+<script src="./assets/js/main.js"></script>
+</body>
+</html>

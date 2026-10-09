@@ -1,0 +1,8 @@
+# 统一以 LF 存入仓库，避免 Windows 下编辑产生整文件 diff
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico  binary
