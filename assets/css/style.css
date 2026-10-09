@@ -546,6 +546,20 @@ a { color: inherit; }
   color: var(--muted);
 }
 
+/* 项目缩略图。深色截屏配浅色页面用一个细边框收住，当作「屏幕窗口」看，
+   而不是把它处理成灰阶——那样就看不出项目原本的样子了。 */
+.project-shot {
+  margin: 22px 0 0;
+}
+
+.project-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
 .project .tags { margin-top: 18px; }
 
 .project-links {
