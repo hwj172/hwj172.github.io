@@ -48,8 +48,9 @@
     'projects.p1.desc': 'An e-commerce platform built as a single Spring Boot application, covering the core product, order and user modules.',
     'projects.p2.title': 'Tianji Mall — Spring Cloud Microservices',
     'projects.p2.desc': 'The same mall rebuilt on a Spring Cloud microservice architecture, integrating Nacos, Sentinel, SkyWalking and Nginx. Asynchronous work runs through a message queue, product recommendations are backed by the Milvus vector database, and the whole stack is deployed with Docker.',
-    'projects.p3.title': 'WeChat Mini Program',
-    'projects.p3.desc': 'A self-built WeChat mini program: front-end pages plus integration with backend APIs to deliver the interactive business flows.',
+    'projects.p3.title': 'Ajie Ledger',
+    'projects.p3.desc': 'A bookkeeping mini program for the card table — mahjong, Dou Dizhu, whatever you play. It does one job: keeping straight who owes whom how much. Published and running, backed by a Node.js service.',
+    'projects.p3.qr': 'Scan in WeChat to open',
     'projects.code': 'Code',
 
     'education.title': 'Education',

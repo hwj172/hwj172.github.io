@@ -240,18 +240,29 @@
         </article>
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p3.title">微信小程序应用</h3>
+          <h3 class="project-title" data-i18n="projects.p3.title">阿杰记账</h3>
           <p class="project-desc" data-i18n="projects.p3.desc">
-            自研微信小程序，完成前端页面开发与后端接口联调，实现业务交互功能。
+            给牌桌上的人用的记账小程序。麻将、斗地主、跑得快都行，只做一件事：记清谁付给谁多少钱。已发布上线，配套一套 Node.js 后端。
           </p>
           <ul class="tags">
             <li class="tag">WeChat MiniProgram</li>
             <li class="tag">JavaScript</li>
-            <li class="tag">WXSS</li>
+            <li class="tag">Node.js</li>
+            <li class="tag">SQLite</li>
           </ul>
           <p class="project-links">
-            <a class="link link-sm" href="https://github.com/hwj172" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+            <a class="link link-sm" href="https://github.com/hwj172/ajie-jizhang" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
           </p>
+
+          <figure class="qr">
+            <img class="qr-img" src="./assets/img/qr-ajie-jizhang.jpg"
+                 width="258" height="258" loading="lazy"
+                 alt="阿杰记账小程序码，用微信扫码即可使用">
+            <!-- 这里不能写 <br>：i18n.js 用 textContent 替换文案，会把标签吃掉 -->
+            <figcaption class="qr-caption" data-i18n="projects.p3.qr">
+              微信扫码直接使用
+            </figcaption>
+          </figure>
         </article>
 
       </div>

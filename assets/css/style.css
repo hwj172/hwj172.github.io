@@ -308,6 +308,34 @@ a { color: inherit; }
   margin-top: 18px;
 }
 
+/* 小程序码。深色模式下也必须保持浅底——二维码靠明暗对比才扫得出来，
+   所以这里给固定白底，不跟随主题变量。 */
+.qr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0 0;
+}
+
+.qr-img {
+  display: block;
+  flex-shrink: 0;           /* 窄屏下不许被 flex 压小，否则码扫不出来 */
+  width: 128px;
+  height: 128px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.qr-caption {
+  max-width: 18ch;          /* 中文一行放得下；英文较长时自然折行 */
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
 /* ═══════════ 教育 ═══════════ */
 /* 结构与项目区一致：细线上分隔，避免引入新组件 */
 .edu {
