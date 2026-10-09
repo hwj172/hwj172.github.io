@@ -308,6 +308,53 @@ a { color: inherit; }
   margin-top: 18px;
 }
 
+/* ═══════════ 教育 ═══════════ */
+/* 结构与项目区一致：细线上分隔，避免引入新组件 */
+.edu {
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.edu:first-child { padding-top: 0; border-top: 0; }
+.edu + .edu { margin-top: 32px; }
+
+.edu-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.edu-school {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.edu-period {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.edu-degree {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.edu-note {
+  margin-top: 10px;
+  max-width: 54ch;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.edu .tags { margin-top: 16px; }
+
 /* ═══════════ 联系 ═══════════ */
 .contact-list {
   display: grid;
@@ -378,9 +425,23 @@ a { color: inherit; }
   }
 }
 
-/* 极窄屏：导航链接字号再收一档，避免换行 */
+/* 小屏导航：导航项加到 5 个后，英文标签（About/Skills/Projects/Education/Contact）
+   加 "Wenjie Huang" 品牌名会超出可用宽度——实测 375px 溢出约 10px、320px 溢出约 110px。
+   导航栏的姓名与首屏大标题重复，这里让位给导航链接。
+   注意 .nav-links 要补上 margin-right:auto 接替 .brand 的撑开作用，否则整组会靠左。 */
+@media (max-width: 480px) {
+  .brand { display: none; }
+  .nav-links { margin-right: auto; }
+}
+
+/* 极窄屏（320px 级安卓机）：字号与间距再收一档，避免换行 */
 @media (max-width: 380px) {
   .nav-links { gap: 10px; font-size: 12px; }
+}
+
+@media (max-width: 340px) {
+  .nav-links { gap: 8px; font-size: 11px; }
+  .lang-switch { font-size: 11px; }
 }
 
 /* ═══════════ 动效降级 ═══════════ */

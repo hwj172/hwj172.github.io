@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>OG cover template</title>
+<style>
+  /* 与站点同款配色，改这里记得同步 assets/css/style.css 的 :root */
+  :root {
+    --bg: #FAFAFA;
+    --fg: #111111;
+    --muted: #6B6B6B;
+    --line: #E5E5E5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .name {
+    font-size: 104px;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .name-en {
+    margin-top: 10px;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--muted);
+  }
+
+  .rule {
+    width: 96px;
+    height: 1px;
+    background: var(--line);
+    margin: 44px 0 26px;
+  }
+
+  .role {
+    font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo,
+                 Consolas, "Liberation Mono", monospace;
+    font-size: 25px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  .site {
+    position: absolute;
+    left: 96px;
+    bottom: 68px;
+    font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo,
+                 Consolas, "Liberation Mono", monospace;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <!-- 改这里的几个值即可，改完跑 tools/og-cover/generate.py 重新生成 -->
+  <div class="name">黄文杰</div>
+  <div class="name-en">Wenjie Huang</div>
+  <div class="rule"></div>
+  <div class="role">Software Engineering Student · 软件工程在读</div>
+  <div class="site">hwj172.github.io</div>
+</body>
+</html>

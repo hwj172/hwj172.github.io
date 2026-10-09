@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · 黄文杰</title>
+<meta name="robots" content="noindex">
+
+<!-- 注意：这一页必须用「根绝对路径」（以 / 开头）。
+     404.html 会在任意路径层级被返回，比如 /foo/bar/baz。
+     那里用相对路径 ./assets/... 会指向 /foo/bar/assets/... 从而 404，页面就成裸样式了。 -->
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<style>
+  /* 只放这一页特有的布局，配色与字体全部复用 style.css */
+  .notfound {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 0;
+  }
+  .notfound-code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .notfound-title {
+    margin-top: 16px;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .notfound-desc {
+    margin-top: 16px;
+    max-width: 42ch;
+    color: var(--muted);
+  }
+  .notfound-link {
+    margin-top: 36px;
+    align-self: flex-start;
+    font-size: 15px;
+  }
+  @media (max-width: 640px) {
+    .notfound-title { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="notfound">
+  <div class="container">
+    <p class="notfound-code">404</p>
+
+    <h1 class="notfound-title"
+        data-zh="页面不存在" data-en="Page not found">页面不存在</h1>
+
+    <p class="notfound-desc"
+       data-zh="你要找的页面可能已被移动或删除，也可能是链接拼错了。"
+       data-en="The page you are looking for may have been moved or deleted, or the link may be mistyped.">
+      你要找的页面可能已被移动或删除，也可能是链接拼错了。
+    </p>
+
+    <a class="link notfound-link" href="/"
+       data-zh="返回首页" data-en="Back to home">返回首页</a>
+  </div>
+</main>
+
+<script>
+/* 这一页不引 i18n.js：那个文件会把 document.title 强制改成首页标题，
+   对这个独立页面是错的。这里只需要跟随语言偏好显示对应文案。 */
+(function () {
+  'use strict';
+
+  var lang = 'zh';
+  try {
+    lang = localStorage.getItem('lang') ||
+      ((navigator.language || 'zh').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en');
+  } catch (e) { /* 隐私模式下读不到 localStorage，用默认值 */ }
+
+  if (lang !== 'en') lang = 'zh';
+
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+  document.title = lang === 'en' ? '404 · Wenjie Huang' : '404 · 黄文杰';
+
+  var attr = lang === 'en' ? 'data-en' : 'data-zh';
+  Array.prototype.forEach.call(document.querySelectorAll('[data-zh]'), function (el) {
+    var text = el.getAttribute(attr);
+    if (text) el.textContent = text;
+  });
+})();
+</script>
+
+</body>
+</html>

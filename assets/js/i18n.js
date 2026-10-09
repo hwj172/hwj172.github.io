@@ -6,6 +6,9 @@
  *   1. 在 index.html 的对应元素上加 data-i18n="区块.字段"
  *   2. 在下面的 en 字典里补上同名 key
  * 漏补的 key 会在控制台打出告警，测一下切换就能发现。
+ *
+ * 注意：技能标签、项目技术标签、邮箱地址这些中英通用的内容没有套 data-i18n，
+ * 直接写在 HTML 里即可。需要中英不同的才走这套字典。
  */
 (function () {
   'use strict';
@@ -21,19 +24,19 @@
     'nav.about': 'About',
     'nav.skills': 'Skills',
     'nav.projects': 'Projects',
+    'nav.education': 'Education',
     'nav.contact': 'Contact',
 
     'hero.name': 'Wenjie Huang',
-    'hero.role': 'Frontend Engineer',
-    'hero.intro': 'Five years of frontend experience, focused on the performance and feel of web applications. I like turning tangled problems into simple structures, and writing small tools that shave a few steps off the daily routine.',
+    'hero.role': 'Software Engineering Student · JUFE',
+    'hero.intro': 'Studying software engineering, focused on backend microservices and LLM applications. I like building real projects and am open to collaboration.',
     'hero.email': 'Email',
-    'hero.juejin': 'Juejin',
 
     'about.title': 'About',
-    'about.p1': 'I am a frontend engineer working mainly on internal tools and dashboard products in the React ecosystem. My day-to-day revolves around component design, state management, build optimisation and accessibility.',
-    'about.p2': 'I prefer to state the problem clearly before writing code. When a requirement is vague I lay out the boundaries and trade-offs first rather than piling on implementation — fewer rewrites, and a more productive discussion.',
-    'about.p3': 'Away from the keyboard I read technical books, keep notes, and keep trying to hold the water temperature steadier when brewing pour-over coffee.',
-    'about.meta': 'Hangzhou, China · 5 years of experience · Open to remote roles',
+    'about.p1': 'An undergraduate in software engineering, focused on backend development. I am familiar with the Spring stack and microservice architecture, and have taken part in rebuilding a mall project from a monolith into microservices, working with components such as Nacos, Sentinel and SkyWalking. I have a working grounding in requirements analysis, API development and troubleshooting.',
+    'about.p2': 'I am comfortable with containerised deployment and basic operations, and set up my development environments with Docker. I also explore LLM applications: I work with models such as Claude, build multi-agent workflows, and have built RAG applications that combine message queues with vector databases. I like to write down solutions as I go.',
+    'about.p3': 'I keep studying computer science fundamentals — the ground covered by the 408 exam syllabus — and I enjoy taking things apart to understand how they work underneath. I like collaborating with a team and pitch in on debugging and documentation.',
+    'about.meta': 'Nanchang, China · Undergraduate · Open to collaboration',
 
     'skills.title': 'Skills',
     'skills.languages': 'Languages',
@@ -41,19 +44,23 @@
     'skills.tools': 'Engineering & Tools',
 
     'projects.title': 'Projects',
-    'projects.p1.title': 'Component Docs Site',
-    'projects.p1.desc': 'A component playground and docs site built on Vite. It generates API tables straight from TypeScript types, supports light/dark themes and lets you edit examples in place.',
-    'projects.p2.title': 'Data Dashboard',
-    'projects.p2.desc': 'A drag-and-drop dashboard that supports several data sources and local caching. Layouts export as JSON, so they move cleanly between environments.',
-    'projects.p3.title': 'CLI Todo',
-    'projects.p3.desc': 'A minimal todo tool for the terminal. Single file, zero dependencies, data stored locally, with natural-language due dates.',
+    'projects.p1.title': 'Tianji Mall — Spring Boot Monolith',
+    'projects.p1.desc': 'An e-commerce platform built as a single Spring Boot application, covering the core product, order and user modules.',
+    'projects.p2.title': 'Tianji Mall — Spring Cloud Microservices',
+    'projects.p2.desc': 'The same mall rebuilt on a Spring Cloud microservice architecture, integrating Nacos, Sentinel, SkyWalking and Nginx. Asynchronous work runs through a message queue, product recommendations are backed by the Milvus vector database, and the whole stack is deployed with Docker.',
+    'projects.p3.title': 'WeChat Mini Program',
+    'projects.p3.desc': 'A self-built WeChat mini program: front-end pages plus integration with backend APIs to deliver the interactive business flows.',
     'projects.code': 'Code',
-    'projects.demo': 'Live demo',
+
+    'education.title': 'Education',
+    'education.e1.school': 'Jiangxi University of Finance and Economics',
+    'education.e1.period': '2024.09 — 2028.06',
+    'education.e1.degree': 'Software Engineering · Bachelor',
+    'education.e1.note': 'Coursework in computer fundamentals, databases and software engineering. Self-taught in microservices, containerisation, observability and LLM application development, with several course projects completed independently.',
 
     'contact.title': 'Contact',
-    'contact.lead': 'Whether it is a new opportunity, a technical question or just to say hello, email is the surest way to reach me.',
+    'contact.lead': 'For technical discussion or project collaboration, email is the quickest way to reach me.',
     'contact.email': 'Email',
-    'contact.juejin': 'Juejin',
 
     'footer.name': 'Wenjie Huang',
     'footer.built': 'Built with plain HTML / CSS / JS'
@@ -62,12 +69,12 @@
   /* 切语言时一并替换 <title> 和描述，方便分享和标签页标题 */
   var meta = {
     zh: {
-      title: '黄文杰 · 前端工程师',
-      desc: '黄文杰，前端工程师。专注于 Web 应用的性能与体验，熟悉 React / TypeScript / Vite。'
+      title: '黄文杰 · 软件工程在读本科生',
+      desc: '黄文杰，江西财经大学软件工程在读本科生。方向为 Java 后端微服务与大模型应用开发，熟悉 Spring Cloud、Docker、RAG 与多智能体工作流。'
     },
     en: {
-      title: 'Wenjie Huang · Frontend Engineer',
-      desc: 'Wenjie Huang, frontend engineer. Focused on the performance and feel of web applications, working with React / TypeScript / Vite.'
+      title: 'Wenjie Huang · Software Engineering Undergraduate',
+      desc: 'Wenjie Huang, software engineering undergraduate at Jiangxi University of Finance and Economics, focused on Java backend microservices and LLM applications.'
     }
   };
 
@@ -112,6 +119,8 @@
     if (lang === 'en') warnMissing();
 
     elsByKey.forEach(function (item) {
+      // 注意：空字符串在 JS 里是 falsy，所以英文译名若写成 '' 会静默回退成中文。
+      // 想表达「这一项英文留空」就干脆别给这个 key，让控制台告警提醒你去填。
       var text = lang === 'en' ? (en[item.key] || originals[item.key]) : originals[item.key];
       if (item.el.textContent !== text) item.el.textContent = text;
     });

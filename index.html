@@ -3,15 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>黄文杰 · 前端工程师</title>
-<meta name="description" content="黄文杰，前端工程师。专注于 Web 应用的性能与体验，熟悉 React / TypeScript / Vite。">
+<title>黄文杰 · 软件工程在读本科生</title>
+<meta name="description" content="黄文杰，江西财经大学软件工程在读本科生。方向为 Java 后端微服务与大模型应用开发，熟悉 Spring Cloud、Docker、RAG 与多智能体工作流。">
 <meta name="author" content="黄文杰">
 
-<!-- Open Graph：分享到社交平台时的卡片。补一张 1200x630 的图后取消下面 og:image 的注释 -->
+<!-- 规范链接：告诉搜索引擎哪个地址是正版，避免 github.io 与其他入口重复收录 -->
+<link rel="canonical" href="https://hwj172.github.io/">
+
+<!-- Open Graph：分享到微信 / Twitter / Slack 时的预览卡片。
+     og:image 必须是绝对地址——相对路径很多爬虫不认，这是 og:image 失效最常见的原因。 -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="黄文杰 · 前端工程师">
-<meta property="og:description" content="专注于 Web 应用的性能与体验。">
-<!-- <meta property="og:image" content="./assets/img/og-cover.png"> -->
+<meta property="og:site_name" content="黄文杰">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://hwj172.github.io/">
+<meta property="og:title" content="黄文杰 · 软件工程在读本科生">
+<meta property="og:description" content="Java 后端微服务与大模型应用开发。熟悉 Spring Cloud、Docker、RAG 与多智能体工作流。">
+<meta property="og:image" content="https://hwj172.github.io/assets/img/og-cover.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="黄文杰 · 软件工程在读本科生">
+
+<!-- Twitter 优先读自己的标签，缺了才回退到 og:*，所以显式写一遍更可靠 -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="黄文杰 · 软件工程在读本科生">
+<meta name="twitter:description" content="Java 后端微服务与大模型应用开发。熟悉 Spring Cloud、Docker、RAG 与多智能体工作流。">
+<meta name="twitter:image" content="https://hwj172.github.io/assets/img/og-cover.png">
+
+<!-- 结构化数据：帮助搜索引擎把「黄文杰」识别成一个人而非一串关键词。
+     中英名同时写入（name 中文、alternateName 英文），是搜索引擎偏好的形式，
+     所以这里不跟随语言切换。故意不放 email，避免被爬虫批量收集。
+     改动这里的姓名 / 职位 / 所在地时，记得跟页面正文保持一致。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "黄文杰",
+  "alternateName": "Wenjie Huang",
+  "jobTitle": "软件工程在读本科生",
+  "description": "Java 后端微服务与大模型应用开发，熟悉 Spring Cloud、Docker、RAG 与多智能体工作流。",
+  "url": "https://hwj172.github.io/",
+  "image": "https://hwj172.github.io/assets/img/og-cover.png",
+  "sameAs": [
+    "https://github.com/hwj172"
+  ],
+  "affiliation": {
+    "@type": "EducationalOrganization",
+    "name": "江西财经大学",
+    "alternateName": "Jiangxi University of Finance and Economics"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "南昌",
+    "addressCountry": "CN"
+  }
+}
+</script>
 
 <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E0E0E" media="(prefers-color-scheme: dark)">
@@ -32,10 +80,11 @@
     <a class="brand" href="#top" data-i18n="nav.brand">黄文杰</a>
 
     <nav class="nav-links" aria-label="主导航">
-      <a href="#about"    data-i18n="nav.about">关于</a>
-      <a href="#skills"   data-i18n="nav.skills">技能</a>
-      <a href="#projects" data-i18n="nav.projects">项目</a>
-      <a href="#contact"  data-i18n="nav.contact">联系</a>
+      <a href="#about"     data-i18n="nav.about">关于</a>
+      <a href="#skills"    data-i18n="nav.skills">技能</a>
+      <a href="#projects"  data-i18n="nav.projects">项目</a>
+      <a href="#education" data-i18n="nav.education">教育</a>
+      <a href="#contact"   data-i18n="nav.contact">联系</a>
     </nav>
 
     <div class="lang-switch" role="group" aria-label="语言切换 / Language">
@@ -52,14 +101,13 @@
   <section class="hero" id="top">
     <div class="container">
       <h1 class="hero-name" data-i18n="hero.name">黄文杰</h1>
-      <p class="hero-role" data-i18n="hero.role">前端工程师</p>
+      <p class="hero-role" data-i18n="hero.role">江西财经大学 · 软件工程在读</p>
       <p class="hero-intro" data-i18n="hero.intro">
-        五年前端开发经验，专注于 Web 应用的性能与体验。喜欢把复杂的问题拆成简单的结构，也喜欢写点小工具让日常工作少几步。
+        软件工程在读，深耕后端微服务与大模型应用开发，乐于实践项目，寻找技术合作机会。
       </p>
       <ul class="hero-links">
-        <li><a class="link" href="https://github.com/yourname" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a class="link" href="mailto:hello@example.com" data-i18n="hero.email">邮箱</a></li>
-        <li><a class="link" href="https://juejin.cn/" target="_blank" rel="noopener" data-i18n="hero.juejin">掘金</a></li>
+        <li><a class="link" href="https://github.com/hwj172" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a class="link" href="mailto:2202402478@stu.jxufe.edu.cn" data-i18n="hero.email">邮箱</a></li>
       </ul>
     </div>
   </section>
@@ -74,18 +122,18 @@
 
       <div class="prose reveal">
         <p data-i18n="about.p1">
-          我是一名前端工程师，目前专注于 React 生态下的中后台与工具型产品。日常工作围绕组件设计、状态管理、构建优化和可访问性展开。
+          软件工程本科在读，主攻后端开发，熟悉 Spring 全家桶与微服务架构，参与过商城类项目从单体到微服务的改造，熟练使用 Nacos、Sentinel、SkyWalking 等组件，具备基础的需求分析、接口开发与问题排查能力。
         </p>
         <p data-i18n="about.p2">
-          我倾向于先把问题讲清楚再动手写。遇到模糊的需求，我会先把边界和取舍列出来，而不是直接堆代码——这样返工更少，讨论也更有效率。
+          熟悉容器化部署与基础运维，使用 Docker 搭建开发环境；研究大模型应用，熟练使用 Claude 等大模型，搭建多智能体工作流，结合消息队列、向量数据库搭建 RAG 应用，习惯在项目中沉淀问题解决方案。
         </p>
         <p data-i18n="about.p3">
-          不写代码的时候，我在读技术书、整理笔记，或者试图把手冲咖啡的水温控制得更稳定一点。
+          持续学习计算机专业基础与 408 相关知识，喜欢拆解底层原理，乐于和团队协作开发，积极参与项目调试、文档整理工作。
         </p>
       </div>
 
       <p class="meta-line reveal" data-i18n="about.meta">
-        现居杭州 · 5 年经验 · 开放远程机会
+        江西南昌 · 在读本科 · 开放项目合作机会
       </p>
     </div>
   </section>
@@ -102,31 +150,41 @@
         <div class="skill-group">
           <h3 class="skill-group-title" data-i18n="skills.languages">语言</h3>
           <ul class="tags">
+            <li class="tag">Java</li>
+            <li class="tag">Python</li>
+            <li class="tag">SQL</li>
             <li class="tag">JavaScript</li>
-            <li class="tag">TypeScript</li>
-            <li class="tag">HTML</li>
-            <li class="tag">CSS</li>
+            <li class="tag">C</li>
           </ul>
         </div>
 
         <div class="skill-group">
           <h3 class="skill-group-title" data-i18n="skills.frameworks">框架与库</h3>
           <ul class="tags">
+            <li class="tag">Spring Boot</li>
+            <li class="tag">Spring Cloud</li>
+            <li class="tag">Vue</li>
             <li class="tag">React</li>
-            <li class="tag">Next.js</li>
-            <li class="tag">Vue 3</li>
             <li class="tag">Tailwind CSS</li>
+            <li class="tag">Milvus</li>
           </ul>
         </div>
 
         <div class="skill-group">
           <h3 class="skill-group-title" data-i18n="skills.tools">工程与工具</h3>
           <ul class="tags">
-            <li class="tag">Vite</li>
-            <li class="tag">Webpack</li>
+            <li class="tag">Docker</li>
             <li class="tag">Git</li>
-            <li class="tag">Playwright</li>
-            <li class="tag">Figma</li>
+            <li class="tag">MySQL</li>
+            <li class="tag">RocketMQ</li>
+            <li class="tag">Linux</li>
+            <li class="tag">Nginx</li>
+            <li class="tag">Nacos</li>
+            <li class="tag">Sentinel</li>
+            <li class="tag">SkyWalking</li>
+            <li class="tag">Postman</li>
+            <li class="tag">Claude</li>
+            <li class="tag">LLM Multi-Agent</li>
           </ul>
         </div>
       </div>
@@ -145,47 +203,54 @@
       <div class="project-list">
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p1.title">组件文档站</h3>
+          <h3 class="project-title" data-i18n="projects.p1.title">天机商城 SpringBoot 单体版</h3>
           <p class="project-desc" data-i18n="projects.p1.desc">
-            基于 Vite 的组件预览与文档站，能从 TypeScript 类型自动生成 API 表格，支持明暗主题切换与在线编辑示例。
+            基于 Spring Boot 开发的单体电商平台，实现商品、订单、用户等基础电商业务模块。
           </p>
           <ul class="tags">
-            <li class="tag">React</li>
-            <li class="tag">TypeScript</li>
-            <li class="tag">Vite</li>
+            <li class="tag">Java</li>
+            <li class="tag">Spring Boot</li>
+            <li class="tag">MySQL</li>
+            <li class="tag">Git</li>
           </ul>
           <p class="project-links">
-            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
-            <a class="link link-sm" href="https://example.com" target="_blank" rel="noopener" data-i18n="projects.demo">在线演示</a>
+            <a class="link link-sm" href="https://github.com/hwj172" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
           </p>
         </article>
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p2.title">数据看板</h3>
+          <h3 class="project-title" data-i18n="projects.p2.title">天机商城 SpringCloud 微服务版</h3>
           <p class="project-desc" data-i18n="projects.p2.desc">
-            可拖拽配置的图表看板，支持多种数据源接入与本地缓存，配置以 JSON 导出，方便在不同环境之间迁移。
+            基于 Spring Cloud 微服务架构的电商系统，整合 Nacos、Sentinel、SkyWalking、Nginx，用消息队列做异步处理，接入 Milvus 向量库实现商品推荐，Docker 容器化部署。
           </p>
           <ul class="tags">
-            <li class="tag">React</li>
-            <li class="tag">ECharts</li>
-            <li class="tag">Zustand</li>
+            <li class="tag">Java</li>
+            <li class="tag">Spring Cloud</li>
+            <li class="tag">RocketMQ</li>
+            <li class="tag">Milvus</li>
+            <li class="tag">Docker</li>
+            <li class="tag">Sentinel</li>
+            <li class="tag">Nginx</li>
+            <li class="tag">SkyWalking</li>
+            <li class="tag">Nacos</li>
           </ul>
           <p class="project-links">
-            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+            <a class="link link-sm" href="https://github.com/hwj172" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
           </p>
         </article>
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p3.title">命令行待办</h3>
+          <h3 class="project-title" data-i18n="projects.p3.title">微信小程序应用</h3>
           <p class="project-desc" data-i18n="projects.p3.desc">
-            终端里的极简待办工具，单文件实现、零依赖，数据存在本地，支持自然语言式的截止日期写法。
+            自研微信小程序，完成前端页面开发与后端接口联调，实现业务交互功能。
           </p>
           <ul class="tags">
-            <li class="tag">Node.js</li>
-            <li class="tag">CLI</li>
+            <li class="tag">WeChat MiniProgram</li>
+            <li class="tag">JavaScript</li>
+            <li class="tag">WXSS</li>
           </ul>
           <p class="project-links">
-            <a class="link link-sm" href="https://github.com/yourname" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
+            <a class="link link-sm" href="https://github.com/hwj172" target="_blank" rel="noopener" data-i18n="projects.code">源码</a>
           </p>
         </article>
 
@@ -193,30 +258,54 @@
     </div>
   </section>
 
-  <!-- ══════════ 04 联系 ══════════ -->
-  <section class="section" id="contact">
+  <!-- ══════════ 04 教育 ══════════ -->
+  <!-- 增删经历：复制整个 <article class="edu"> 块即可。
+       时间建议写成「2024.09 — 2028.06」这种格式，它会用等宽字体显示。
+       data-i18n 的 key 必须唯一，英文译名补到 assets/js/i18n.js。 -->
+  <section class="section" id="education">
     <div class="container">
       <div class="section-head reveal">
         <span class="section-index">04</span>
+        <h2 class="section-title" data-i18n="education.title">教育</h2>
+      </div>
+
+      <div class="edu-list">
+
+        <article class="edu reveal">
+          <div class="edu-head">
+            <h3 class="edu-school" data-i18n="education.e1.school">江西财经大学</h3>
+            <span class="edu-period" data-i18n="education.e1.period">2024.09 — 2028.06</span>
+          </div>
+          <p class="edu-degree" data-i18n="education.e1.degree">软件工程 · 本科</p>
+          <p class="edu-note" data-i18n="education.e1.note">
+            在校学习计算机基础、数据库与软件工程；自主学习微服务、容器化、可观测性与大模型应用技术，独立完成多个课程项目。
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 联系 ══════════ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-index">05</span>
         <h2 class="section-title" data-i18n="contact.title">联系</h2>
       </div>
 
       <p class="prose reveal" data-i18n="contact.lead">
-        有新机会、技术交流或者只是想认识一下，都欢迎发邮件找我。
+        欢迎就技术交流、项目合作联系我，邮件是最快的方式。
       </p>
 
       <ul class="contact-list reveal">
         <li>
           <span class="contact-label" data-i18n="contact.email">邮箱</span>
-          <a class="link" href="mailto:hello@example.com">hello@example.com</a>
+          <a class="link" href="mailto:2202402478@stu.jxufe.edu.cn">2202402478@stu.jxufe.edu.cn</a>
         </li>
         <li>
           <span class="contact-label">GitHub</span>
-          <a class="link" href="https://github.com/yourname" target="_blank" rel="noopener">github.com/yourname</a>
-        </li>
-        <li>
-          <span class="contact-label" data-i18n="contact.juejin">掘金</span>
-          <a class="link" href="https://juejin.cn/" target="_blank" rel="noopener">juejin.cn</a>
+          <a class="link" href="https://github.com/hwj172" target="_blank" rel="noopener">github.com/hwj172</a>
         </li>
       </ul>
     </div>
