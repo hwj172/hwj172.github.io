@@ -157,7 +157,7 @@ python tools/og-cover/generate.py
 
 脚本需要 Playwright（`pip install playwright`）。它会优先复用你系统里已装的 Chrome，所以不必再下载 140MB 的浏览器内核。
 
-生成后记得确认 `index.html` 里 `og:image` 指向的是**绝对地址**（`https://hwj172.github.io/...`）——相对路径很多爬虫不认，这是分享图不显示最常见的原因。
+生成后记得确认 `index.html` 里 `og:image` 指向的是**绝对地址**（`https://huangwenjie.asia/...`）——相对路径很多爬虫不认，这是分享图不显示最常见的原因。
 
 ### 10. 自定义 404 页
 
@@ -188,6 +188,29 @@ python tools/og-cover/generate.py
 3. 打开仓库的 **Settings → Pages**，Source 选 `Deploy from a branch`，Branch 选 `main`、目录选 `/ (root)`，点 Save。
 
 4. 等 1–2 分钟，访问 `https://<你的用户名>.github.io/`。
+
+### 自定义域名
+
+本站已绑定 **`huangwenjie.asia`**（根域名），`hwj172.github.io` 会 301 跳转过去。
+
+配置要点，改域名时照这个顺序：
+
+1. **先在仓库 Settings → Pages 里填域名并保存**，再动 DNS。顺序反了的话，域名在 GitHub 验证归属前就指向了它，别人可以抢先绑走。
+2. DNS 记录（在域名注册商处）：
+
+   | 类型 | 主机记录 | 值 |
+   |---|---|---|
+   | A | `@` | `185.199.108.153` / `.109.153` / `.110.153` / `.111.153`（共 4 条） |
+   | AAAA | `@` | `2606:50c0:8000::153` / `8001` / `8002` / `8003::153`（共 4 条，可选） |
+   | CNAME | `www` | `hwj172.github.io` |
+
+   `www` 那条别省——只配 A 记录的话 `www.huangwenjie.asia` 会打不开。
+3. DNS 生效后再勾 **Enforce HTTPS**，证书由 Let's Encrypt 自动签发。
+4. **用 Cloudflare 的话，那几条记录前 24 小时必须设成「仅 DNS」（灰云）**，开代理会让证书签不下来。
+
+> 换域名后记得同步 `index.html` 里的绝对地址：`canonical`、`og:url`、`og:image`、`twitter:image`、JSON-LD 的 `url` 和 `image`。
+> 这六处指向旧域名会导致"规范地址指向一个重定向"，影响收录。
+> 仓库里的 `CNAME` 文件由 GitHub 自动维护，不要手建。
 
 ### 之后更新内容
 
