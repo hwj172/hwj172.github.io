@@ -31,6 +31,7 @@
     'hero.role': 'Software Engineering Student · JUFE',
     'hero.intro': 'Studying software engineering, focused on backend microservices and LLM applications. I like building real projects and am open to collaboration.',
     'hero.email': 'Email',
+    'hero.cue': 'Scroll',
 
     'about.title': 'About',
     'about.p1': 'An undergraduate in software engineering, focused on backend development. I am familiar with the Spring stack and microservice architecture, and have taken part in rebuilding a mall project from a monolith into microservices, working with components such as Nacos, Sentinel and SkyWalking. I have a working grounding in requirements analysis, API development and troubleshooting.',
@@ -140,6 +141,11 @@
     );
 
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* 隐私模式下忽略 */ }
+
+    // 通知依赖文案的模块（motion.js 要把首屏姓名重新拆成单字做动效）
+    try {
+      document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
+    } catch (e) { /* 老浏览器不支持 CustomEvent 构造器时忽略 */ }
   }
 
   /* ── 初始语言：优先上次选择，其次跟随浏览器 ── */

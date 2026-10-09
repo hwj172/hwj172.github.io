@@ -29,7 +29,8 @@ index.html              页面结构与全部中文文案 ← 改内容只改这
 404.html                自定义 404 页（注意：里面必须用 /assets/ 这种根绝对路径）
 assets/css/style.css    全部样式（配色变量在最上面）
 assets/js/i18n.js       英文对照表 + 语言切换逻辑 ← 改英文只改这个文件
-assets/js/main.js       滚动淡入、导航高亮、页脚年份
+assets/js/motion.js     滚动动效（逐字浮现、视差、错落、进度、磁吸）
+assets/js/main.js       页脚年份、导航高亮、当前区块指示
 assets/img/favicon.svg  标签页图标
 assets/img/og-cover.png 分享到微信/Twitter 时的预览图
 tools/og-cover/         上面那张图的生成模板与脚本（详见「重新生成分享图」）
@@ -196,6 +197,28 @@ git add . && git commit -m "update content" && git push
 - **中文写在 HTML 里，英文放字典**：默认语言零闪烁，没有 JS 也能读到完整内容，搜索引擎抓取的也是中文正文。代价是改中文要改 HTML，改英文要改 JS。
 - **不引任何 CDN**：字体、图标、脚本全部本地，加载快且不受第三方服务下线影响。
 - **暗色模式不加按钮**：跟随系统即可，避免导航栏堆太多控件。
+- **动效全部手写，不引动画库**：GSAP + ScrollTrigger gzip 后 30–42 KB，比整站还大。手法借鉴自 GitHub 上的 MIT 项目（滚动驱动来自 lax.js，文字拆分同 SplitType 的思路），但只取思路不引代码。
+
+## 动效怎么改
+
+全部动效在 `assets/js/motion.js`，样式在 `style.css`。改之前先知道这三条约束：
+
+1. **只动 `transform` 和 `opacity`**，不碰 `width` / `height` / `top` / `left`——前者走合成层，后者会触发重排
+2. **`prefers-reduced-motion: reduce` 时必须完全静态**。CSS 侧和 JS 侧各覆盖一半，改一边要记得另一边
+3. **没有 JS 时内容必须完整可见**。靠 `.js` 类前缀实现：CSS 默认可见，有 JS 才隐藏。另有一道 3 秒保险（在 `index.html` 头部），动效模块没接管就自动解除隐藏
+
+**要调具体的动效**：
+
+| 想改什么 | 改哪里 |
+|---|---|
+| 逐字浮现的速度与间隔 | `style.css` 的 `ch-in` 动画与 `animation-delay` |
+| 区块错落的节奏 | `style.css` 里 `.reveal.is-visible > *` 的 `transition-delay` |
+| 视差位移幅度 | `motion.js` 里 `0.18` 这个系数 |
+| 磁吸力度 | `motion.js` 里的 `MAX_SHIFT`（当前 4px） |
+| 竖线出现的宽度阈值 | `style.css` 里的 `@media (min-width: 1180px)` |
+
+> 中文注释在 gzip 后占约 38%（UTF-8 下每个汉字 3 字节，压缩率远低于英文）。
+> 如果哪天要抠体积，精简注释比压缩代码有效得多。
 - **≤480px 时隐藏导航栏的姓名**：导航项有 5 个后，英文标签加上 "Wenjie Huang" 会超出小屏宽度（实测 375px 溢出 10px、320px 溢出约 110px）。导航栏的姓名与首屏大标题重复，所以让它让位。相关断点都在 `style.css` 底部，改导航项数量时记得复测。
 
 ## 改完之后怎么验证

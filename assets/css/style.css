@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════
    黄文杰 · 个人主页
-   极简克制：大量留白、黑白灰、细字重、仅淡入动效
-   无外部依赖，字体全部走系统字体栈
+   极简克制：大量留白、黑白灰、细字重
+   动效只动 transform / opacity；无外部依赖，字体走系统字体栈
    ═══════════════════════════════════════════════ */
 
 /* ── 主题变量 ───────────────────────────────── */
@@ -104,6 +104,76 @@ a { color: inherit; }
 .link-sm { font-size: 14px; color: var(--muted); }
 .link-sm:hover { color: var(--fg); }
 
+/* ═══════════ 滚动进度条 ═══════════ */
+/* --scroll-progress 由 motion.js 写入，这里与 .rail-fill 共用同一份计算 */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;              /* 压在导航（50）之上，成为页面最顶的那 1px */
+  height: 1px;
+  pointer-events: none;
+}
+
+.scroll-progress-bar {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+/* ═══════════ 左侧区块指示 ═══════════ */
+/* 内容列 680px 居中，窄屏两侧没有余量给它，所以只在宽屏出现 */
+.rail {
+  display: none;
+}
+
+@media (min-width: 1180px) {
+  .rail {
+    position: fixed;
+    left: 40px;
+    top: 50%;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 500ms var(--ease);
+    pointer-events: none;
+  }
+
+  /* 首屏不存在「当前区块」，整条隐去 */
+  .rail.is-active { opacity: 1; }
+}
+
+.rail-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.rail-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 110px;
+  background: var(--line);
+}
+
+.rail-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--fg);
+  transform: scaleY(var(--scroll-progress, 0));
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
 /* ═══════════ 导航 ═══════════ */
 .nav {
   position: fixed;
@@ -169,14 +239,79 @@ a { color: inherit; }
 
 /* ═══════════ 首屏 ═══════════ */
 .hero {
-  padding: 168px 0 104px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 56px);
+  min-height: calc(100svh - 56px);   /* svh 避开移动端浏览器地址栏的抖动 */
+  padding: 72px 0 112px;
 }
 
 .hero-name {
-  font-size: 44px;
+  font-size: clamp(44px, 9vw, 132px);
   font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+/* 用 animation 而非 transition：切换语言时姓名会被重新拆分，
+   只有重新触发动画才能再播一次。 */
+.js .hero-name .ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.45em, 0);
+  animation: ch-in 700ms var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * 55ms + 120ms);
+}
+
+@keyframes ch-in {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-cue-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.hero-cue-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.hero-cue-line::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 100%;
+  background: var(--fg);
+  transform: translateY(-100%);
+  animation: cue-travel 2400ms var(--ease) infinite;
+}
+
+@keyframes cue-travel {
+  0%   { transform: translateY(-100%); }
+  55%  { transform: translateY(100%); }
+  100% { transform: translateY(100%); }
 }
 
 .hero-role {
@@ -283,9 +418,32 @@ a { color: inherit; }
 .project {
   padding-top: 32px;
   border-top: 1px solid var(--line);
+  transition: transform 420ms var(--ease);
 }
 .project:first-child { padding-top: 0; border-top: 0; }
 .project + .project { margin-top: 32px; }
+
+@media (hover: hover) {
+  .project:hover { transform: translateX(5px); }
+}
+
+.project-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* 序号必须在 data-i18n 元素之外：放里面会被 i18n 的 textContent 替换吃掉 */
+.project-num {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  transition: color 420ms var(--ease);
+}
+
+.project:hover .project-num { color: var(--fg); }
 
 .project-title {
   font-size: 17px;
@@ -417,16 +575,34 @@ a { color: inherit; }
   color: var(--muted);
 }
 
-/* ═══════════ 滚动淡入 ═══════════ */
-/* 通过 .js 前缀保证：脚本未执行时内容依然可见 */
-.js .reveal {
+/* ═══════════ 错落入场 ═══════════ */
+/* .js 前缀保证脚本未执行时内容依然可见；motion.js 若未按时接管，
+   index.html 里的保险会把这个类摘掉。
+   容器有子元素就只动子元素 —— 容器自己再淡一次会显得浑浊。 */
+.js .reveal > * {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translate3d(0, 14px, 0);
 }
-.js .reveal.is-visible {
+.js .reveal.is-visible > * {
   opacity: 1;
   transform: none;
-  transition: opacity 240ms var(--ease), transform 240ms var(--ease);
+  transition: opacity 620ms var(--ease), transform 620ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal-leaf {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+.js .reveal-leaf.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 620ms var(--ease), transform 620ms var(--ease);
+}
+
+/* .magnetic 由 motion.js 按「有精确指针 + 未要求减少动效」决定加不加 */
+.magnetic {
+  transition: transform 320ms var(--ease);
 }
 
 /* ═══════════ 响应式 ═══════════ */
@@ -439,9 +615,11 @@ a { color: inherit; }
   .nav-links { gap: 14px; font-size: 13px; }
   .brand { font-size: 14px; }
 
-  .hero { padding: 120px 0 64px; }
-  .hero-name { font-size: 32px; }
+  .hero { padding: 48px 0 104px; }
+  /* 窄屏改用 vw 主导，避免 "Wenjie Huang" 换行换得太难看 */
+  .hero-name { font-size: clamp(36px, 11.5vw, 60px); }
   .hero-intro { font-size: 16px; margin-top: 22px; }
+  .hero-cue { bottom: 28px; }
 
   .section { padding: 64px 0; }
   .section-head { margin-bottom: 28px; }
@@ -473,15 +651,32 @@ a { color: inherit; }
 }
 
 /* ═══════════ 动效降级 ═══════════ */
+/* 这里管 CSS 动画，motion.js 那边管行为，两边都要覆盖 */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .js .reveal,
-  .js .reveal.is-visible {
+  .js .reveal > *,
+  .js .reveal-leaf,
+  .js .hero-name .ch {
     opacity: 1;
     transform: none;
+    animation: none;
     transition: none;
   }
+
+  /* 视差是 motion.js 写的内联样式，这里兜底 */
+  .hero {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .rail-fill,
+  .scroll-progress-bar {
+    transform: none !important;
+  }
+
+  .hero-cue-line::after { animation: none; opacity: 0; }
+  .magnetic { transition: none; }
 
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -491,8 +686,20 @@ a { color: inherit; }
 
 /* ═══════════ 打印 ═══════════ */
 @media print {
-  .nav, .lang-switch, .skip-link { display: none; }
-  .js .reveal { opacity: 1; transform: none; }
+  .nav, .lang-switch, .skip-link,
+  .scroll-progress, .rail, .hero-cue { display: none; }
+
+  .js .reveal > *,
+  .js .reveal-leaf,
+  .js .hero-name .ch { opacity: 1; transform: none; }
+
+  .hero {
+    min-height: auto;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .project { transform: none !important; }
   body { background: #fff; color: #000; }
   .section { padding: 24px 0; page-break-inside: avoid; }
 }

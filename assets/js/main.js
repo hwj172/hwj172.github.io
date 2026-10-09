@@ -1,11 +1,12 @@
 /**
- * 页面交互：滚动淡入、导航状态、页脚年份
- * 无第三方依赖。
+ * 页面基础交互：页脚年份、导航状态、当前区块指示
+ *
+ * 动效在 motion.js。这里的 IntersectionObserver 只有一个用途：
+ * 判断当前处于哪个区块，由它同时驱动导航高亮和左侧竖线的序号 ——
+ * 不要在这里再加第二个观察器。
  */
 (function () {
   'use strict';
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── 页脚年份：不用每年手改 ── */
   var yearEl = document.getElementById('year');
@@ -14,45 +15,23 @@
   /* ── 滚动时给导航加一条分割线 ── */
   var nav = document.getElementById('nav');
   if (nav) {
-    var ticking = false;
+    var navTicking = false;
 
     var syncNav = function () {
-      nav.classList.toggle('is-scrolled', window.scrollY > 8);
-      ticking = false;
+      nav.classList.toggle('is-scrolled', window.pageYOffset > 8);
+      navTicking = false;
     };
 
     window.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = true;
+      if (navTicking) return;
+      navTicking = true;
       window.requestAnimationFrame(syncNav);
     }, { passive: true });
 
     syncNav();
   }
 
-  /* ── 区块淡入（只播一次） ── */
-  var revealEls = document.querySelectorAll('.reveal');
-
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    // 降级：直接显示，不依赖动画
-    Array.prototype.forEach.call(revealEls, function (el) {
-      el.classList.add('is-visible');
-    });
-  } else {
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-
-    Array.prototype.forEach.call(revealEls, function (el) {
-      revealObserver.observe(el);
-    });
-  }
-
-  /* ── 导航高亮当前区块 ── */
+  /* ── 当前区块 ── */
   var navLinks = {};
   Array.prototype.forEach.call(
     document.querySelectorAll('.nav-links a[href^="#"]'),
@@ -62,6 +41,9 @@
   var sections = Object.keys(navLinks)
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
+
+  var rail = document.querySelector('.rail');
+  var railNum = document.querySelector('.rail-num');
 
   if (sections.length && 'IntersectionObserver' in window) {
     var visible = new Set();
@@ -80,6 +62,18 @@
           navLinks[id].removeAttribute('aria-current');
         }
       });
+
+      if (current) {
+        var idx = -1;
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i].id === current) { idx = i; break; }
+        }
+        if (railNum && idx >= 0) {
+          railNum.textContent = ('0' + (idx + 1)).slice(-2);
+        }
+      }
+      // 在首屏时不存在「当前区块」，竖线整体淡出
+      if (rail) rail.classList.toggle('is-active', !!current);
     };
 
     var navObserver = new IntersectionObserver(function (entries) {

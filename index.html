@@ -67,12 +67,27 @@
 <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./assets/css/style.css">
 
-<!-- 标记 JS 可用：没有它时 .reveal 元素保持可见，避免脚本失效导致整页空白 -->
-<script>document.documentElement.classList.add('js');</script>
+<!-- .js 前缀让 .reveal 默认隐藏、交给 motion.js 播入场。
+     3 秒保险：动效模块若未接管就摘掉这个类，否则内容会永远停在 opacity:0。 -->
+<script>
+  document.documentElement.classList.add('js');
+  setTimeout(function () {
+    if (!document.documentElement.hasAttribute('data-motion-ready')) {
+      document.documentElement.classList.remove('js');
+    }
+  }, 3000);
+</script>
 </head>
 <body>
 
 <a class="skip-link" href="#main" data-i18n="a11y.skip">跳到主要内容</a>
+
+<div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-bar"></span></div>
+
+<aside class="rail" aria-hidden="true">
+  <span class="rail-num">01</span>
+  <span class="rail-line"><span class="rail-fill"></span></span>
+</aside>
 
 <!-- ══════════ 导航 ══════════ -->
 <header class="nav" id="nav">
@@ -99,7 +114,7 @@
 
   <!-- ══════════ 首屏 ══════════ -->
   <section class="hero" id="top">
-    <div class="container">
+    <div class="container hero-inner">
       <h1 class="hero-name" data-i18n="hero.name">黄文杰</h1>
       <p class="hero-role" data-i18n="hero.role">江西财经大学 · 软件工程在读</p>
       <p class="hero-intro" data-i18n="hero.intro">
@@ -109,6 +124,11 @@
         <li><a class="link" href="https://github.com/hwj172" target="_blank" rel="noopener">GitHub</a></li>
         <li><a class="link" href="mailto:2202402478@stu.jxufe.edu.cn" data-i18n="hero.email">邮箱</a></li>
       </ul>
+    </div>
+
+    <div class="hero-cue" aria-hidden="true">
+      <span class="hero-cue-text" data-i18n="hero.cue">向下滚动</span>
+      <span class="hero-cue-line"></span>
     </div>
   </section>
 
@@ -203,7 +223,10 @@
       <div class="project-list">
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p1.title">天机商城 SpringBoot 单体版</h3>
+          <div class="project-head">
+            <span class="project-num" aria-hidden="true">01</span>
+            <h3 class="project-title" data-i18n="projects.p1.title">天机商城 SpringBoot 单体版</h3>
+          </div>
           <p class="project-desc" data-i18n="projects.p1.desc">
             基于 Spring Boot 开发的单体电商平台，实现商品、订单、用户等基础电商业务模块。
           </p>
@@ -219,7 +242,10 @@
         </article>
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p2.title">天机商城 SpringCloud 微服务版</h3>
+          <div class="project-head">
+            <span class="project-num" aria-hidden="true">02</span>
+            <h3 class="project-title" data-i18n="projects.p2.title">天机商城 SpringCloud 微服务版</h3>
+          </div>
           <p class="project-desc" data-i18n="projects.p2.desc">
             基于 Spring Cloud 微服务架构的电商系统，整合 Nacos、Sentinel、SkyWalking、Nginx，用消息队列做异步处理，接入 Milvus 向量库实现商品推荐，Docker 容器化部署。
           </p>
@@ -240,7 +266,10 @@
         </article>
 
         <article class="project reveal">
-          <h3 class="project-title" data-i18n="projects.p3.title">阿杰记账</h3>
+          <div class="project-head">
+            <span class="project-num" aria-hidden="true">03</span>
+            <h3 class="project-title" data-i18n="projects.p3.title">阿杰记账</h3>
+          </div>
           <p class="project-desc" data-i18n="projects.p3.desc">
             给牌桌上的人用的记账小程序。麻将、斗地主、跑得快都行，只做一件事：记清谁付给谁多少钱。已发布上线，配套一套 Node.js 后端。
           </p>
@@ -336,6 +365,7 @@
 </footer>
 
 <script src="./assets/js/i18n.js"></script>
+<script src="./assets/js/motion.js"></script>
 <script src="./assets/js/main.js"></script>
 </body>
 </html>
