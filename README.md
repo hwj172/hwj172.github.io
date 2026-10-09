@@ -33,7 +33,9 @@ assets/js/motion.js     滚动动效（逐字浮现、视差、错落、进度�
 assets/js/main.js       页脚年份、导航高亮、当前区块指示
 assets/img/favicon.svg  标签页图标
 assets/img/og-cover.png 分享到微信/Twitter 时的预览图
-tools/og-cover/         上面那张图的生成模板与脚本（详见「重新生成分享图」）
+assets/img/visual-trace.svg  视觉带的抽象图形（链路追踪瀑布图）
+tools/visual/           上面这张图的生成脚本
+tools/og-cover/         分享图的生成模板与脚本（详见「重新生成分享图」）
 ```
 
 ---
@@ -216,6 +218,24 @@ git add . && git commit -m "update content" && git push
 | 视差位移幅度 | `motion.js` 里 `0.18` 这个系数 |
 | 磁吸力度 | `motion.js` 里的 `MAX_SHIFT`（当前 4px） |
 | 竖线出现的宽度阈值 | `style.css` 里的 `@media (min-width: 1180px)` |
+| 视觉带的展开幅度 | `style.css` 里 `.visual-frame` 的 `clip-path` 系数（当前 34%） |
+| 视觉带的网点疏密 | 同处 `.visual-wash` 的 `mask-size`（26px → 6px） |
+
+### 视觉带（链路追踪图）
+
+「关于我」和「技能」之间那条抽象图形，是**分布式链路追踪瀑布图**的抽象化——
+横向细条代表 span，竖线代表服务边界。滚动时从中间向两侧展开，
+同时后面一层半调网点逐渐收敛到实心。
+
+改图形：编辑 `tools/visual/generate.py` 后执行 `python tools/visual/generate.py`。
+
+两个实现上的坑，改之前先知道：
+
+- **半调只能作用在实心色块上**。一开始我把网点直接套在线条上，4px 的细线被切成
+  断续小段，看起来像渲染坏了。现在是分两层：`.visual-wash` 承接网点，
+  `.visual-shape` 保持线条清晰。
+- **`--p` 默认值是 1，不是 0**。因为无 JS 时它不该停在未展开状态；
+  `.js` 前缀才把它归零交给滚动驱动——和 `.reveal` 是同一套机制。
 
 > 中文注释在 gzip 后占约 38%（UTF-8 下每个汉字 3 字节，压缩率远低于英文）。
 > 如果哪天要抠体积，精简注释比压缩代码有效得多。

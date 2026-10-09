@@ -83,10 +83,14 @@
     });
   }
 
-  /* ── 滚动进度 + 首屏视差 ── */
+  /* ── 滚动进度 + 首屏视差 + 视觉带 ── */
   var hero = doc.querySelector('.hero');
-  var needsScrollWork = doc.querySelector('.rail') || hero;
+  var visual = doc.querySelector('.visual');
+  var needsScrollWork = doc.querySelector('.rail') || hero || visual;
   var ticking = false;
+
+  // 减少动效时视觉带直接给成品状态，不做展开与网点显现
+  if (visual && reduceMotion) visual.style.setProperty('--p', '1');
 
   function onFrame() {
     ticking = false;
@@ -103,6 +107,15 @@
       var hp = Math.min(y / h, 1);
       hero.style.opacity = String(1 - hp);
       hero.style.transform = 'translate3d(0,' + (hp * h * 0.18) + 'px,0)';
+    }
+
+    // 视觉带：从元素顶边升到视口 35% 处算完成。
+    // 这里只读一次 rect，随后写的是 clip-path / mask 相关的变量，不影响布局，不会抖动。
+    if (visual && !reduceMotion) {
+      var vh = window.innerHeight;
+      var top = visual.getBoundingClientRect().top;
+      var vp = (vh - top) / (vh * 0.65);
+      visual.style.setProperty('--p', Math.max(0, Math.min(1, vp)).toFixed(4));
     }
   }
 

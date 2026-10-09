@@ -158,6 +158,17 @@
     </div>
   </section>
 
+  <!-- ══════════ 视觉带 ══════════ -->
+  <!-- 链路追踪抽象图。滚动时从中间向两侧展开，同时由半调网点逐渐显现。
+       形状来自 assets/img/visual-trace.svg（由 tools/visual/generate.py 生成），
+       颜色取 --fg，所以自动跟随明暗主题。纯装饰，对读屏隐藏。 -->
+  <div class="visual" aria-hidden="true">
+    <div class="visual-frame">
+      <div class="visual-wash"></div>
+      <div class="visual-shape"></div>
+    </div>
+  </div>
+
   <!-- ══════════ 02 技能 ══════════ -->
   <section class="section" id="skills">
     <div class="container">

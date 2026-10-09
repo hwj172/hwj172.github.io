@@ -314,6 +314,63 @@ a { color: inherit; }
   100% { transform: translateY(100%); }
 }
 
+/* ═══════════ 视觉带 ═══════════ */
+/* 两个效果叠在一起，各占一层：
+     .visual-frame  外层 —— clip-path 从中间向两侧展开（滚动进度驱动）
+                    同时套一层半调网点遮罩，网点随进度变大到互相重叠
+     .visual-shape  内层 —— 用 SVG 当遮罩，铺上 --fg 颜色得到形状
+   颜色取自 --fg，所以明暗主题自动跟随，不需要两份素材。
+   --p 由 motion.js 按滚动进度写入（0→1）。 */
+/* 默认完整展开：没有 JS 时视觉带直接是成品，不会露出一条残带。
+   有 JS 才从 0 开始、交给滚动驱动 —— 与 .reveal 同一套机制。 */
+.visual {
+  --p: 1;
+  margin: 0;
+  overflow: hidden;
+}
+
+.js .visual {
+  --p: 0;
+}
+
+.visual-frame {
+  position: relative;
+  height: clamp(170px, 24vw, 300px);
+  /* 展开：未滚动到时只露中间 32% */
+  clip-path: inset(0 calc((1 - var(--p)) * 34%) 0 calc((1 - var(--p)) * 34%));
+}
+
+/* 半调网点作用在这一层：它是一块连续的渐变，网点才能正常发挥。
+   放在线条上会把细线打断成虚线，反而像渲染坏了。 */
+.visual-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--fg) 14%, transparent) 26%,
+    color-mix(in srgb, var(--fg) 9%, transparent) 58%,
+    transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, #000 5.5px, transparent 6px);
+  mask-image: radial-gradient(circle, #000 5.5px, transparent 6px);
+  -webkit-mask-size: calc(26px - var(--p) * 20px) calc(26px - var(--p) * 20px);
+  mask-size: calc(26px - var(--p) * 20px) calc(26px - var(--p) * 20px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+
+.visual-shape {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  opacity: 0.8;
+  -webkit-mask-image: url("../img/visual-trace.svg");
+  mask-image: url("../img/visual-trace.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
 .hero-role {
   margin-top: 12px;
   font-family: var(--font-mono);
@@ -677,6 +734,9 @@ a { color: inherit; }
 
   .hero-cue-line::after { animation: none; opacity: 0; }
   .magnetic { transition: none; }
+
+  /* 视觉带直接给成品，不做展开与网点显现 */
+  .visual { --p: 1 !important; }
 
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
